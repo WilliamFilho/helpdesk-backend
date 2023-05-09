@@ -1,9 +1,12 @@
 package br.com.helpdesk.services;
 
 
+import br.com.helpdesk.domain.Pessoa;
 import br.com.helpdesk.domain.Tecnico;
 import br.com.helpdesk.dtos.TecnicoDTO;
+import br.com.helpdesk.repositories.PessoaRepository;
 import br.com.helpdesk.repositories.TecnicoRepository;
+import br.com.helpdesk.services.exceptions.JdbcSQLIntegrityConstraintViolationException;
 import br.com.helpdesk.services.exceptions.ObjectnotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +20,9 @@ public class TecnicoService {
     @Autowired
     private TecnicoRepository repository;
 
+    @Autowired
+    private PessoaRepository pessoaRepository;
+
     public Tecnico findById(Integer id){
         Optional<Tecnico> obj = repository.findById(id);
         return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto não encontrado! ID: " + id));
@@ -28,7 +34,20 @@ public class TecnicoService {
 
     public Tecnico create(TecnicoDTO objDTO) {
         objDTO.setId(null);
+        validaPorCpfEEmail(objDTO);
         Tecnico newObj = new Tecnico(objDTO);
         return repository.save(newObj);
+    }
+
+    private void validaPorCpfEEmail(TecnicoDTO objDTO) {
+        Optional<Pessoa> obj = pessoaRepository.findByCpf(objDTO.getCpf());
+        if(obj.isPresent() && obj.get().getId() != objDTO.getId()){
+            throw new JdbcSQLIntegrityConstraintViolationException("CPF já existe");
+        }
+        obj = pessoaRepository.findByEmail(objDTO.getEmail());
+        if(obj.isPresent() && obj.get().getId() != objDTO.getId()){
+            throw new JdbcSQLIntegrityConstraintViolationException("E-mail já existe");
+        }
+
     }
 }
