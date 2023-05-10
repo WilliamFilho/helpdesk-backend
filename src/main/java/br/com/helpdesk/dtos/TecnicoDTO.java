@@ -3,6 +3,7 @@ package br.com.helpdesk.dtos;
 import br.com.helpdesk.domain.Tecnico;
 import br.com.helpdesk.domain.enums.Perfil;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -13,9 +14,13 @@ import java.util.stream.Collectors;
 public class TecnicoDTO implements Serializable {
 
     protected Integer id;
+    @NotNull(message = "O campo NOME é requerido!")
     protected String nome;
+    @NotNull(message = "O campo CPF é requerido!")
     protected String cpf;
+    @NotNull(message = "O campo E-MAIL é requerido!")
     protected String email;
+    @NotNull(message = "O campo SENHA é requerido!")
     protected String senha;
     protected Set<Integer> perfis = new HashSet<>();
     @JsonFormat(pattern = "dd/MM/yyyy")
@@ -81,7 +86,7 @@ public class TecnicoDTO implements Serializable {
         return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
     }
 
-    public void addPerfil(Perfil perfil) {
+    private void addPerfil(Perfil perfil) {
         this.perfis.add(perfil.getCodigo());
     }
 
