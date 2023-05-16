@@ -17,7 +17,7 @@ public class ResourceExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 
-    @ExceptionHandler(JdbcSQLIntegrityConstraintViolationException.class)
+   @ExceptionHandler(JdbcSQLIntegrityConstraintViolationException.class)
     public ResponseEntity<StanderError> jdbcSQLIntegrityConstraintViolationException(JdbcSQLIntegrityConstraintViolationException ex, HttpServletRequest request){
         StanderError error = new StanderError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), "Violação de dados!", ex.getMessage(), request.getRequestURI());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
@@ -35,7 +35,7 @@ public class ResourceExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
     }
 
-    @ExceptionHandler(DataIntegrityViolationException.class)
+   @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<StanderError> validationErrors(DataIntegrityViolationException ex, HttpServletRequest request){
         StanderError error = new StanderError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), "Violação de dados!", ex.getMessage(), request.getRequestURI());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);

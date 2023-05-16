@@ -1,6 +1,6 @@
 package br.com.helpdesk.dtos;
 
-import br.com.helpdesk.domain.Tecnico;
+import br.com.helpdesk.domain.Cliente;
 import br.com.helpdesk.domain.enums.Perfil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotNull;
@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class TecnicoDTO implements Serializable {
+public class ClienteDTO implements Serializable {
 
     protected Integer id;
     @NotNull(message = "O campo NOME é requerido!")
@@ -26,12 +26,12 @@ public class TecnicoDTO implements Serializable {
     @JsonFormat(pattern = "dd/MM/yyyy")
     protected LocalDate dataCriacao = LocalDate.now();
 
-    public TecnicoDTO() {
+    public ClienteDTO() {
         super();
         addPerfil(Perfil.CLIENTE);
     }
 
-    public TecnicoDTO(Tecnico obj) {
+    public ClienteDTO(Cliente obj) {
         this.id = obj.getId();
         this.nome = obj.getNome();
         this.cpf = obj.getCpf();
