@@ -9,6 +9,10 @@
 				{
 					"env":"test",
 					"url":"http://localhost:8080"
+				},
+				{
+					"env":"dev",
+					"url":"http://localhost:8080"
 				}
 			],
 			"name":"helpdesk"
@@ -16,7 +20,8 @@
 	],
 	"envList":[
 		"local",
-		"test"
+		"test",
+		"dev"
 	],
 	"headerList":[],
 	"postScript":"",
