@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="-5031.500000000001" y="-2643.8333333333335">br.com.helpdesk.domain.Chamado</node>
+    <node x="-4703.000000000001" y="-2473.8333333333335">br.com.helpdesk.domain.Cliente</node>
+    <node x="-4469.000000000001" y="-2594.8333333333335">br.com.helpdesk.domain.Pessoa</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="br.com.helpdesk.domain.Cliente" target="br.com.helpdesk.domain.Pessoa" relationship="GENERALIZATION">
+      <point x="96.5" y="0.0" />
+      <point x="-83.5" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="1.0" showDependencies="false" x="-4681.500000000001" y="-2270.0" />
+  <SelectedNodes>
+    <node>br.com.helpdesk.domain.Cliente</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
