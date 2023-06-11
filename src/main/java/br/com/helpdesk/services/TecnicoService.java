@@ -10,6 +10,7 @@ import br.com.helpdesk.services.exceptions.JdbcSQLIntegrityConstraintViolationEx
 import br.com.helpdesk.services.exceptions.ObjectnotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -45,15 +46,17 @@ public class TecnicoService {
         return repository.save(newObj);
     }
 
-    public Tecnico update(Integer id, TecnicoDTO objDTO) {
-        objDTO.setId(id);
-        Tecnico oldObj = findById(id);
-        validaPorCpfEEmail(objDTO);
-        oldObj = new Tecnico(objDTO);
-        //if(!oldObj.getPerfis().equals("ADMIN")){
-            //throw new PermissionDeniedException("Não possui permissão para atualizar");
-       // }
-        return repository.save(oldObj);
+    public Tecnico update(Integer id, TecnicoDTO objDTO) throws AccessDeniedException{
+        try {
+            objDTO.setId(id);
+            Tecnico oldObj = findById(id);
+            validaPorCpfEEmail(objDTO);
+            oldObj = new Tecnico(objDTO);
+            return repository.save(oldObj);
+        }catch (AccessDeniedException e) {
+            e.getMessage();
+        }
+        return null;
     }
 
     public void delete(Integer id) {
