@@ -8,7 +8,6 @@ import br.com.helpdesk.repositories.PessoaRepository;
 import br.com.helpdesk.repositories.TecnicoRepository;
 import br.com.helpdesk.services.exceptions.JdbcSQLIntegrityConstraintViolationException;
 import br.com.helpdesk.services.exceptions.ObjectnotFoundException;
-import br.com.helpdesk.services.exceptions.PermissionDeniedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
