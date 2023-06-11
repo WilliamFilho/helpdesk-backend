@@ -66,6 +66,10 @@
             <artifactId>modelmapper</artifactId>
             <version>3.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
         <!-- API, java.xml.bind module -->
         <dependency>
             <groupId>javax.xml.bind</groupId>

@@ -45,7 +45,7 @@ public class TecnicoResource {
 
     @PutMapping(value = "/{id}")
     @PreAuthorize("hasAnyRole('ADMIN')")
-    public ResponseEntity<TecnicoDTO> update(@PathVariable Integer id,@Valid @RequestBody TecnicoDTO objDTO){
+    public ResponseEntity<TecnicoDTO> update(@PathVariable Integer id, @Valid @RequestBody TecnicoDTO objDTO){
         Tecnico obj = service.update(id, objDTO);
         return ResponseEntity.ok().body(new TecnicoDTO(obj));
     }

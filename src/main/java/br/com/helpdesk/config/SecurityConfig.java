@@ -3,7 +3,7 @@ package br.com.helpdesk.config;
 import br.com.helpdesk.security.JWTAuthenticationFilter;
 import br.com.helpdesk.security.JWTAuthorizationFilter;
 import br.com.helpdesk.security.JWTUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -26,17 +26,13 @@ import java.util.Arrays;
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
 @Configuration
+@AllArgsConstructor
 public class SecurityConfig {
 
-    private static final String[] PUBLIC_MATCHERS = {"/h2-console/**"};
+    //private static final String[] PUBLIC_MATCHERS = {"/h2-console/**"};
 
-    @Autowired
     private Environment env;
-
-    @Autowired
     private JWTUtil jwtUtil;
-
-    @Autowired
     private UserDetailsService detailsService;
 
     @Bean
@@ -48,6 +44,12 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationConfiguration authConfiguration)
             throws Exception {
 
+        //http.csrf(csrf -> csrf.disable());
+        //http.authorizeHttpRequests(requests -> requests.requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll().anyRequest().authenticated());
+        //http.addFilter(new JWTAuthenticationFilter(authConfiguration.getAuthenticationManager(), jwtUtil));
+        //http.addFilter(new JWTAuthorizationFilter(authConfiguration.getAuthenticationManager(), jwtUtil, detailsService));
+        //http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        //return http.build();
         if (Arrays.asList(env.getActiveProfiles()).contains("test")) {
             http.headers().frameOptions().disable();
         }
@@ -64,7 +66,6 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().addFilter(new JWTAuthenticationFilter(authConfiguration.getAuthenticationManager(), jwtUtil));
         http.addFilter(new JWTAuthorizationFilter(authConfiguration.getAuthenticationManager(), jwtUtil, detailsService));
-
 
         return http.build();
     }

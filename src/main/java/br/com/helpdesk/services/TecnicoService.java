@@ -8,6 +8,7 @@ import br.com.helpdesk.repositories.PessoaRepository;
 import br.com.helpdesk.repositories.TecnicoRepository;
 import br.com.helpdesk.services.exceptions.JdbcSQLIntegrityConstraintViolationException;
 import br.com.helpdesk.services.exceptions.ObjectnotFoundException;
+import br.com.helpdesk.services.exceptions.PermissionDeniedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -50,6 +51,9 @@ public class TecnicoService {
         Tecnico oldObj = findById(id);
         validaPorCpfEEmail(objDTO);
         oldObj = new Tecnico(objDTO);
+        //if(!oldObj.getPerfis().equals("ADMIN")){
+            //throw new PermissionDeniedException("Não possui permissão para atualizar");
+       // }
         return repository.save(oldObj);
     }
 
